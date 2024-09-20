@@ -3,7 +3,9 @@ package com.java.interviewprep.collections.list;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 public class ArrayListPractice {
 	
@@ -17,6 +19,14 @@ public class ArrayListPractice {
 		list.add("white");
 		list.add("black");
 		
+		List<Integer> list2 = new ArrayList<>();
+		list2.add(2);
+		list2.add(3);
+		list2.add(4);
+		list2.add(6);
+		list2.add(1);
+		list2.add(5);
+		
 		basicOperationsOnArrayList();
 //		searchElement(list);
 //		sortArrayList(list);
@@ -28,6 +38,9 @@ public class ArrayListPractice {
 //		swapTwoElements(list);
 //		joinTwoArrayList();
 //		cloneArrayList(list);
+//		findMaxMinElement(list2);
+//		findNoOfElements(list2);
+//		removeDuplicates(list2);
 		
 	}
 	
@@ -73,6 +86,21 @@ public class ArrayListPractice {
 		list.remove(6);
 		System.out.println(list);
 		
+//		Write a Java program to Convert an ArrayList to Array
+		Object[] array = list.toArray();
+		System.out.println(array);
+		
+//		Write a Java program to Insert more than one element at a particular position of an ArrayList
+		List<String> list3 = new ArrayList<>();
+		list3.add("green");
+		list3.add("blue");
+		list3.add("orange");
+		list.addAll(5, list3);
+		System.out.println(list);
+		
+		
+//		-----------------------------------------------------------------------------------------------------------------------------
+		
 //		Write a Java program to empty an array list.
 		list.clear();
 //		or
@@ -81,7 +109,6 @@ public class ArrayListPractice {
 		
 //		Write a Java program to test whether an array list is empty or not.
 		System.out.println(list.isEmpty());
-		
 	}
 	
 //	Write a Java program to search for an element in an array list.
@@ -157,7 +184,7 @@ public class ArrayListPractice {
 		}
 		
 		for(int i=0; i<list1.size(); i++) {
-			if(list1.get(i)!=list2.get(i)) {
+			if(list1.get(i).equals(list2.get(i))) {
 				System.out.println(false);
 				break;
 			}
@@ -216,8 +243,55 @@ public class ArrayListPractice {
 //		Therefore no memory will waste.
 	}
 	
+//	Write a Java program to Find maximum and minimum element in ArrayList
+	public static void findMaxMinElement(List<Integer> list) {
+		Integer max = list.get(0);
+		Integer min = list.get(0);
+		for(Integer i : list) {
+			if(i > max)
+				max = i;
+			
+			if(i < min)
+				min = i;
+		}
+		System.out.println("max :: ".concat(max.toString()).concat("  ").concat("min :: ").concat(min.toString()));
+	}
 	
+//	Write a Java program how do you find the number of elements present in an ArrayList
+	public static void findNoOfElements(List<Integer> list) {
+		int count = 0;
+		for(Integer i : list) {
+			count++;
+		}
+		long count1 = list.stream().count();
+		System.out.println(count);
+		System.out.println(count1);
+	}
 	
-	
+//	Write a Java program to Remove Duplicates from ArrayList
+	public static void removeDuplicates(List<Integer> list1) {
+		List<Integer> list = list1;
+		list.add(2);
+		list.add(1);
+		list.add(5);
+		list.add(3);
+		list.add(2);
+		int i;
+		int j;
+		for(i=0; i<list.size(); i++) {
+			for(j=0; j<list.size(); j++) {
+				if(i!=j && list.get(i).equals(list.get(j))) {
+					list.remove(j);
+				}
+			}				
+		}
+		System.out.println(list);
+		
+//		With less time complexity and less code
+		Set<Integer> set = new LinkedHashSet<>(list);
+//		Set does not allowed duplicate elements.
+		list = new ArrayList<>(set);
+		System.out.println(list);
+	}
 	
 }
