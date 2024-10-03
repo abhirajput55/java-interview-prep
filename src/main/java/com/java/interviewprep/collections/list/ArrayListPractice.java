@@ -109,6 +109,7 @@ public class ArrayListPractice {
 		
 //		Write a Java program to test whether an array list is empty or not.
 		System.out.println(list.isEmpty());
+		
 	}
 	
 //	Write a Java program to search for an element in an array list.
@@ -293,5 +294,6 @@ public class ArrayListPractice {
 		list = new ArrayList<>(set);
 		System.out.println(list);
 	}
+	
 	
 }
