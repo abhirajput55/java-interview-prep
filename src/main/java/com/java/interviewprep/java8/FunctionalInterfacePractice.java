@@ -8,8 +8,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiConsumer;
+import java.util.function.BinaryOperator;
 import java.util.function.Function;
+import java.util.function.IntUnaryOperator;
 import java.util.function.Predicate;
+import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
 public class FunctionalInterfacePractice {
@@ -103,6 +106,25 @@ public class FunctionalInterfacePractice {
 	 */
 	
 //	How can you use the UnaryOperator<T> functional interface? Write a program to square the elements of a list using UnaryOperator.
+	/* 
+	 * If our input and output type is same then we can use UnaryOperator<T>.
+	 * It is the child class of Function<T, T> functional interface.
+	 * UnaryOperator takes only one input argument.
+	 */
+	public static void unaryOperatorEx(List<Integer> list) {
+		
+		UnaryOperator<Integer> square = i -> i * i;
+//		We can also use primitive type UnaryOperator for primitive values.
+//		This is to avoid internal autoboxing and autounboxing of values.
+		IntUnaryOperator intSquare = i -> i * i;
+		int[] arr = {1, 2, 3, 4, 5, 6};
+		
+		list.forEach(e -> System.out.println(square.apply(e)));
+		for(int i=0; i<arr.length; i++) {
+			System.out.println(intSquare.applyAsInt(arr[i]));
+		}
+	}
+	
 //	How do method references work in the context of functional interfaces? Provide examples of a static method reference and an instance method reference.
 	
 	/*Advanced Topics*/
@@ -130,6 +152,20 @@ public class FunctionalInterfacePractice {
 	}
 	
 //	Write a program that uses BinaryOperator<T> to combine elements from two lists.
+	/* 
+	 * If we have two inputs of same type and output type is also same then we can use BinaryOperator<T>.
+	 * It is the child class of BiFunction<T, T, T> functional interface.
+	 * BinaryOperator takes two input argument.
+	 */
+	public static void combineTwoList(List<Integer> list1, List<Integer> list2) {
+		
+		BinaryOperator<List<Integer>> combineLists = (l1, l2) -> {
+			l1.addAll(l2);
+			return l1;
+		};
+		
+		System.out.println(combineLists.apply(list1, list2));
+	}
 	
 	/*Scenarios and Challenges*/
 //	Create a chain of Predicate<T> conditions using and(), or(), and negate() methods. Write a program that checks if a number is greater than 5 and even, or if it is negative.
@@ -192,13 +228,15 @@ public class FunctionalInterfacePractice {
 		List<Integer> list = new ArrayList<>(Arrays.asList(1, 3, 2, 4, 7, 8, 5, 9, 23, 45, 12, 43));
 		List<Employee> empList = new ArrayList<>(Arrays.asList(new Employee("Abhi", 647), new Employee("Dinesh", 809), new Employee("Saurabh", 356), new Employee("Abhishek", 290)));
 		
-		twoSum(3, 7);
-		squareRoot(4);
-		predicateDemo(list);
-		comparatorSortMethod(empList);
-		predicateAndOrNigate();
+//		twoSum(3, 7);
+//		squareRoot(4);
+//		predicateDemo(list);
+//		comparatorSortMethod(empList);
+//		predicateAndOrNigate();
 //		startNewThread();
-		convertToUppercase("asdfghj");
+//		convertToUppercase("asdfghj");
+//		unaryOperatorEx(list);
+		combineTwoList(list, list);
 	}
 }
 
@@ -214,6 +252,14 @@ class Employee {
 	
 	public String toString() {
 		return name + "::" + empNo; 
+	}
+	
+	public String getName() {
+		return this.name;
+	}
+	
+	public int getEmpNo() {
+		return this.empNo;
 	}
 }
 
