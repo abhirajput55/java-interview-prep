@@ -88,15 +88,33 @@ public class MultithreadingEnhancementPart4 {
 		ExecutorService service = Executors.newFixedThreadPool(3);
 		
 		for(MyCallable job : sumJobs) {
-			Future<Integer> submit = service.submit(job);
+			Future<Integer> future = service.submit(job);
 			try {
-				System.out.println(submit.get());				
+				System.out.println(future.get());				
 			} catch (Exception e) {
 				// TODO: handle exception
 			}
 		}
 		
+		service.shutdown();
+		
 	}
+	
+	public static void diffBetnRunAndCall() {
+		
+		/* Differences between Runnable and Callable */
+		
+//		1) If a thread is not required to return anything after completing the job then we should go for Runnable.
+//		If a thread required to return something after completing the job the we should go for Callable.
+//		2) Runnable interface contains only one method run(). Callable interface contains only one method call().
+//		3) Runnable job not required to return anything and hence return type of run method is void.
+//		Callable job is required to return something and hence return type of call method is Object.
+//		4) Within the run method if there is any chance of raising checked exception compulsory we should handle by using try catch because we can't use throws keyword for run method.
+//		Within the call method if there is any chance of raising checked exception we are not required to handle by using try catch because call method already throws exception.
+//		5) Runnable interface present in java.lang package. Callable interface present in java.util.concurrent package.
+//		6) Runnable introduced in 1.0 version. Callable introduced in 1.5 version.
+	}
+	
 
 }
 
