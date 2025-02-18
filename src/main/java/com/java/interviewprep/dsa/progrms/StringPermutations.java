@@ -3,6 +3,7 @@ package com.java.interviewprep.dsa.progrms;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 
 public class StringPermutations {
@@ -13,25 +14,32 @@ public class StringPermutations {
 		
 		String str = "ABC";
 		
-		List<String> list = findAllPermutation(str);
-		System.out.println(list);
+		backTrack(str, 0, str.length()-1);
+		
 	}
 
-	private static List<String> findAllPermutation(String str) {
-		findPermutation(str, "");
-		return null;
-	}
-	
-	private static void findPermutation(String str, String prefix) {
+	public static void backTrack(String str, int idx, int n) {
 		
-//		if(prefix.length() == )
-		
-		for(int i=0; i<str.length(); i++) {
-			char ch = str.charAt(i);
-			
-			String remaining = str.substring(0, i) + str.substring(i + 1);
-			
-			findPermutation(remaining, prefix+ch);
+		if(idx == n) {
+			System.out.println(str);
+		}else {
+			for(int i=idx; i<=n; i++) {
+				str = swap(str, idx, i);
+				backTrack(str, idx+1, n);
+				str = swap(str, idx, i);
+			}
 		}
 	}
+	
+	public static String swap(String str, int i, int j) {
+		
+		char[] charArray = str.toCharArray();
+		
+		char temp = charArray[i];
+		charArray[i] = charArray[j];
+		charArray[j] = temp;
+		
+		return String.valueOf(charArray);
+	}
+	
 }

@@ -17,9 +17,37 @@ public class BubbleSortAlgorithm {
 		String[] arr = {"John", "Alice", "Bob", "Eve"};
 //		Expected Output:["Alice", "Bob", "Eve", "John"]
 		
-		sortNameAsc(arr);			
-					
+//		sortNameAsc(arr);	
+		
+		int[] nums = {3,2,1,5,6,4}; 
+		int k = 2;
+		int element = findKthLargest(nums, k);
+		System.out.println(element);
 	}
+	
+	public static int findKthLargest(int[] nums, int k) {
+        
+        // Bubble Sort Approach
+
+        int temp = 0;
+        boolean swapped = false;
+
+        for(int i=0; i<k; i++){
+            for(int j=0; j<nums.length-1-i; j++){
+                if(nums[j] > nums[j+1]){
+                    temp = nums[j];
+                    nums[j] = nums[j+1];
+                    nums[j+1] = temp;
+                    swapped = true;
+                }
+            }
+            if(!swapped){
+                break;
+            }
+        }
+
+        return nums[nums.length - k];
+    }
 
 	private static void sortAgesDesc(int[] arr) {
 		
